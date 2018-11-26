@@ -357,6 +357,13 @@ def miniAOD_customizeCommon(process):
     run2_miniAOD_80XLegacy.toReplaceWith(
         process.makePatTausTask, _makePatTausTaskWithTauReReco)
 
+    #-- Adding LowPt  taus
+    from RecoTauTag.Configuration.LowPtHPSPFTaus_cfi import addLowPtTaus
+    addLowPtTaus(process)
+    process.load("RecoTauTag.Configuration.RecoPFTauTag_cff")
+    process.load("RecoTauTag.Configuration.HPSPFTaus_cff")
+
+
     # Adding puppi jets
     if not hasattr(process, 'ak4PFJetsPuppi'): #MM: avoid confilct with substructure call
         process.load('RecoJets.JetProducers.ak4PFJetsPuppi_cfi')
